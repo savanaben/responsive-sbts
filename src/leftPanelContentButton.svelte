@@ -11,11 +11,11 @@
   
   <div>
     <Avatar 
-      imageUrl="/diana-mugshot-square.png" 
+      imageUrl="diana-mugshot-square.png" 
       name="Jane Doe" 
       text="It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief. " 
     />
-    <p>I updated the organizer with <button on:click={highlight} class="highlight-button">topic 2</button>.</p>
+    <p>I updated topic 2 with the <button on:click={highlight} class="highlight-button">key facts</button>.</p>
 
 
   </div>

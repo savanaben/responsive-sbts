@@ -5,8 +5,14 @@ import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import css from 'rollup-plugin-css-only';
+import replace from '@rollup/plugin-replace';
+import svg from 'rollup-plugin-svg';
+
+
 
 const production = !process.env.ROLLUP_WATCH;
+
+
 
 function serve() {
 	let server;
@@ -58,6 +64,15 @@ export default {
 			dedupe: ['svelte'],
 			exportConditions: ['svelte']
 		}),
+
+		svg({ base64: true }), // Add this line
+
+		replace({
+			include: ['src/**/*.svelte', 'src/**/*.js'], // Add this line
+			exclude: 'node_modules/**', // Add this line
+			__BASE_URL__: process.env.NODE_ENV === 'production' ? '/responsive-sbts/' : '/'
+		  }),
+
 		commonjs(),
 
 		// In dev mode, call `npm run start` once

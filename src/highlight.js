@@ -1,29 +1,40 @@
-export function pulseHighlight(node, duration = 1000) {
-    // Create a new style element
-    const style = document.createElement('style');
+export function pulseHighlight(node, duration = 700) {
+    // Create a new style element if it doesn't already exist
+    let style = document.head.querySelector('#pulse-style');
+    if (!style) {
+        style = document.createElement('style');
+        style.id = 'pulse-style';
+        style.innerHTML = `
+            @keyframes pulse {
+                0%, 100% { 
+                    background-color: #f6d4ff; 
+                    outline-color: #A12ECF;
+                }
+                50% { 
+                    background-color: white; 
+                    outline-color: white;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
 
-    // Define the pulse animation
-    style.innerHTML = `
-        @keyframes pulse {
-            0%, 100% { background-color: white; }
-            50% { background-color:#f6d4ff;; }
-        }
-    `;
-
-    // Append the style element to the head of the document
-    document.head.appendChild(style);
+    // Function to start the animation
+    function startAnimation() {
+        node.style.animation = 'none'; // Reset animation
+        setTimeout(() => {
+            node.style.animation = `pulse ${duration}ms ease-in-out 0s 2`;
+        }, 10); // Short delay to reapply the animation
+    }
 
     // Scroll to the node smoothly
     node.scrollIntoView({ behavior: 'smooth' });
 
-    // Wait for 1300ms (estimated 1000ms for scrolling + 300ms pause) before starting the animation
-    setTimeout(() => {
-        node.style.animation = `pulse ${duration}ms ease-in-out 0s 2`;
-    }, 1000);
+    // Delay the start of the animation until scrolling is likely complete
+    setTimeout(startAnimation, 700); // Adjust this timeout based on typical scroll duration
 
     // Set the background color to lightpink when the animation ends
     node.addEventListener('animationend', () => {
-        node.style.backgroundColor = '#f6d4ff;';
-        document.head.removeChild(style);
+        node.style.backgroundColor = '#f6d4ff';
     });
 }

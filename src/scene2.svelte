@@ -1,6 +1,10 @@
 <script>
     import LeftPanelContentButton from './leftPanelContentButton.svelte';
     import OrganizerWithBackground from './OrganizerWithBackground.svelte';
+    import asset1 from './Asset-1.svg'; 
+
+    let backgroundImage = `url(${asset1})`;
+
 
 </script>
 
@@ -8,7 +12,7 @@
     <div class="panel">
         <LeftPanelContentButton />
     </div>
-    <div class="panel background">
+    <div  class="panel background" style="background-image: {backgroundImage};">
         <OrganizerWithBackground />
     </div>
 </div>
@@ -33,17 +37,19 @@
         }
 
     .background {
-        background-image: url('/Asset-1.svg');
         background-size: cover; /* Make the image cover the entire area */
         background-position: bottom; /* Anchor the image to the bottom */
         background-repeat: no-repeat; /* Prevent the image from repeating */
     }
 
+
+    
     @media (min-width: 800px) {
         .panel {
             flex: 1; 
         }
     }
+
 
     @media (max-width: 800px) {
     .panel {

@@ -5,7 +5,7 @@
 
     let title1 = "Topic 1";
     let title2 = "Topic 2";
-    let text = "Demo of the differenvalue of the background-image property. Demo of the different values ofthe background-image property.";
+    let text = "Demo of the different value of the background-image property. Demo of the different values ofthe background-image property.";
     let text2 = "does the highlight work on this.";
 </script>
 
@@ -23,26 +23,45 @@
 </div>
 
 <style>
-
-#highlight-target {
-    background-color: #f6d4ff;
-    }
     .background {
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        flex-wrap: wrap; /* Allow the boxes to wrap onto a new line */
-        gap: 0.5rem; /* Create a 1rem gap between the boxes */
+        flex-wrap: wrap;
+        gap: 0.5rem;
         box-sizing: border-box;
+        position: relative; /* Ensure the position context for the pseudo-element */
     }
 
-    
+    @media (max-width: 799px) {
+        .background::before {
+            content: '';
+            position: absolute;
+            top: -1.5rem; /* Extend the gradient out by 1.5rem */
+            right: -1.5rem; /* Extend the gradient out by 1.5rem */
+            bottom: -1.5rem; /* Extend the gradient out by 1.5rem */
+            left: -1.5rem; /* Extend the gradient out by 1.5rem */
+            background: linear-gradient(180deg, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 100%);
+            z-index: 0; /* Keep it behind the boxes */
+        }
+    }
+
     .box {
         background-color: white;
         padding: 1rem;
         border-radius: 10px;
-        min-width: 250px; /* New: Set a minimum width for the boxes */
+        min-width: 250px;
         box-sizing: border-box;
-        flex: 1; /* New: Allow the boxes to grow and shrink */
+        flex: 1;
+        position: relative; /* Ensure boxes are above the gradient */
+        z-index: 1;
     }
+
+    #highlight-target {
+    background-color: #F3D5FF;
+    outline: #A12ECF;
+    outline-style: solid;
+    outline-width: 1px;
+    }
+    
 </style>

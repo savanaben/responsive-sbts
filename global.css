@@ -31,6 +31,11 @@ p {
 	line-height: 1.1;
 }
 
+li {
+	font-size: 24px;
+    font-family: calibri;
+    line-height: 1.1;
+}
 
 a {
 	color: rgb(0,100,200);

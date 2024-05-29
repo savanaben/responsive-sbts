@@ -74,6 +74,7 @@ button {
 	background-color: #f4f4f4;
 	outline: none;
 	margin: 0;
+	cursor: pointer;
 }
 
 button:disabled {
@@ -86,6 +87,17 @@ button:not(:disabled):active {
 
 button:focus {
 	border-color: #666;
+}
+
+.toolbar-button:hover {
+	background-color: #f8f8f8 !important;
+}
+
+.highlight-button {
+	padding: 0px 4px 0px 4px;
+	color: rgb(0, 100, 232);
+	background-color: white;
+	border-radius: 4px;
 }
 
 

@@ -14,22 +14,48 @@ body {
 }
 
 h1 {
-	margin-top: 0;
+	font-size: 64px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
 }
 
 h2 {
-	margin-top: 0;
+	font-size: 36px;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
 }
 
 h3 {
-	margin-top: 0;
+	font-size: 28px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
 }
 
 p {
 	font-size: 24px;
 	font-family: calibri;
 	line-height: 1.1;
+	margin-bottom: 24px;
 }
+
+.passage-text {
+	line-height: 1.4;
+}
+
+.caption {
+	font-size: 22px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
 
 li {
 	font-size: 24px;

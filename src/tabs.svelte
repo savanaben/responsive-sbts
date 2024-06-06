@@ -1,16 +1,37 @@
 <script>
     import { writable } from 'svelte/store';
-    import { sidebarOpen } from './stores.js';
+    import { sidebarOpen, tabScrollPositions } from './stores.js';
 
     export let tabs = [];
     export let activeTab;
 
+    let tabContent;
+
     // Function to handle tab click
     function handleTabClick(tab) {
+        // Save the current scroll position if tabContent is defined
+        if (tabContent) {
+            tabScrollPositions.update(positions => {
+                positions[$activeTab] = tabContent.scrollTop;
+                return positions;
+            });
+        }
+
         if (tab.action) {
             tab.action(); // Execute the action if it exists
         } else {
             activeTab.set(tab.title); // Set the active tab normally
+        }
+    }
+
+    // Restore the scroll position when the active tab changes
+    $: {
+        if (tabContent) {
+            tabScrollPositions.subscribe(positions => {
+                if (positions[$activeTab] !== undefined && tabContent) {
+                    tabContent.scrollTop = positions[$activeTab];
+                }
+            });
         }
     }
 </script>
@@ -27,7 +48,7 @@
             </button>
         {/each}
     </div>
-    <div class="tab-content">
+    <div class="tab-content" bind:this={tabContent} style="background-image: {tabs.find(tab => tab.title === $activeTab)?.backgroundImage || 'none'}; background-size: cover; background-position: bottom; background-repeat: no-repeat;">
         {#if $activeTab}
             {#each tabs as tab}
                 {#if tab.title === $activeTab && !tab.action}
@@ -68,6 +89,7 @@
         overflow-y: auto; /* Allows vertical scrolling within the content area */
         flex-grow: 1; /* Takes up remaining space after .tabs-buttons */
         padding: 1.5rem; /* Creates space for the sticky tab buttons, adjust as needed */
+        background-color: white;
     }
     .active {
         font-weight: bold;

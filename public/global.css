@@ -14,23 +14,54 @@ body {
 }
 
 h1 {
-	margin-top: 0;
+	font-size: 64px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
 }
 
 h2 {
-	margin-top: 0;
+	font-size: 36px;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
 }
 
 h3 {
-	margin-top: 0;
+	font-size: 28px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
 }
 
 p {
 	font-size: 24px;
 	font-family: calibri;
 	line-height: 1.1;
+	margin-bottom: 24px;
 }
 
+.passage-text {
+	line-height: 1.4;
+}
+
+.caption {
+	font-size: 22px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+
+li {
+	font-size: 24px;
+    font-family: calibri;
+    line-height: 1.1;
+}
 
 a {
 	color: rgb(0,100,200);
@@ -69,6 +100,7 @@ button {
 	background-color: #f4f4f4;
 	outline: none;
 	margin: 0;
+	cursor: pointer;
 }
 
 button:disabled {
@@ -81,6 +113,17 @@ button:not(:disabled):active {
 
 button:focus {
 	border-color: #666;
+}
+
+.toolbar-button:hover {
+	background-color: #f8f8f8 !important;
+}
+
+.highlight-button {
+	padding: 0px 4px 0px 4px;
+	color: rgb(0, 100, 232);
+	background-color: white;
+	border-radius: 4px;
 }
 
 

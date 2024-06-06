@@ -1,7 +1,22 @@
 <script>
+     import { tabSwitchAndHighlight } from './stores.js'; // Import the store
+
+
     export let imageUrl = ''; // URL of the avatar image
     export let name = ''; // Name to display below the image
     export let text = ''; // Text to display to the right of the image
+
+    // Function to handle highlight
+    function highlight() {
+        tabSwitchAndHighlight.set('Organizer'); // Set the tab to switch to
+    }
+
+    // Function to handle click events in the text content
+    function handleClick(event) {
+        if (event.target.classList.contains('highlight-button')) {
+            highlight();
+        }
+    }
   </script>
   
   <div class="avatar-container">
@@ -9,9 +24,11 @@
       <img src={imageUrl} alt={name} />
       <p class="nameplate">{name}</p>
     </div>
-    <p class="text-content">{text}</p> <!-- Updated part: regular paragraph text -->
+    <div class="text-content" on:click={handleClick}>
+     <p class="remove-top-margin"> {@html text} </p><!-- Use {@html} directive to render raw HTML -->
   </div>
-  
+ </div>
+
   <style>
     .avatar-container {
       display: flex;
@@ -42,6 +59,10 @@
       flex-grow: 1; 
       margin: 0 0 0 1rem;
       border-radius: 4px; 
-      
     }
+
+    .remove-top-margin {
+      margin-top: 0;
+    }
+
   </style>

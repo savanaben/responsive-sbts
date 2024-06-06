@@ -5,8 +5,8 @@
 
     let title1 = "Topic 1";
     let title2 = "Topic 2";
-    let text = "Demo of the different value of the background-image property. Demo of the different values ofthe background-image property.";
-    let text2 = "does the highlight work on this.";
+    let text = "Demo of the different value of the background-image property. Demo of the different values of the background-image property.";
+    let text2 = "Here's some key facts we decided to add to this topic.";
 </script>
 
 <div class="background">
@@ -62,6 +62,10 @@
     outline: #A12ECF;
     outline-style: solid;
     outline-width: 1px;
+    }
+
+    h3 {
+        margin-top: 0;
     }
     
 </style>

@@ -155,6 +155,29 @@ button:focus {
 	overflow-y: auto; /* Enable vertical scrolling */
 	height: calc(100vh - 60px);
 	box-sizing: border-box; /* New: Includes padding and border in the element's total width and height */
-
-
   }
+
+
+
+.speech-bubbles-container.scrollable {
+	overflow-y: auto;
+}
+
+.speech-bubbles-container.flex-start {
+	justify-content: flex-start !important;
+}
+
+.speech-bubbles-container.hidden {
+	visibility: hidden !important; /* Hide the container when height is exceeded */
+	position: absolute !important; /* Position it absolutely */
+	width: 60% !important; /* Set width to 60% */
+	overflow: auto;
+}
+/* for avatar component text */
+.text-content.bubble .first-paragraph {
+	margin-top: 0; /* Remove top margin for the first paragraph */
+}
+
+.text-content.bubble .last-paragraph {
+	margin-bottom: 0; /* Remove bottom margin for the last paragraph */
+}

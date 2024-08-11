@@ -6,18 +6,14 @@
         layoutMode.set(mode);
     }
 
-    // Function to go to the next scene
+    // Function to go to the next scene with wrapping
     function nextScene() {
-        if ($currentSceneIndex < $scenes.length - 1) {
-            currentSceneIndex.update(n => n + 1);
-        }
+        currentSceneIndex.update(n => (n + 1) % $scenes.length);
     }
 
-    // Function to go to the previous scene
+    // Function to go to the previous scene with wrapping
     function prevScene() {
-        if ($currentSceneIndex > 0) {
-            currentSceneIndex.update(n => n - 1);
-        }
+        currentSceneIndex.update(n => (n - 1 + $scenes.length) % $scenes.length);
     }
 
     // Derived store to get the current scene text
@@ -35,6 +31,10 @@
                 return "Standard passage with sidebars";
             case 5:
                 return "Banner image passage";
+            case 6:
+                return "fluid intro test 1 - keep avatars";
+            case 7:
+                return "fluid intro test 2 - avatar circles";
             default:
                 return "";
         }

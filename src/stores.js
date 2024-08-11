@@ -5,6 +5,8 @@ import Scene2 from './scene2.svelte';
 import Scene3 from './scene3.svelte';
 import Scene4 from './scene4.svelte';
 import Scene5 from './scene5.svelte';
+import Scene6 from './scene6.svelte';
+import Scene7 from './scene7.svelte';
 import { pulseHighlight } from './highlight.js'; // Import pulseHighlight
 
 
@@ -14,7 +16,7 @@ export const activeTab = writable(null); // Initialize with no active tab
 
 
 export const currentSceneIndex = writable(0); // Store to hold the current scene's index
-export const scenes = writable([Scene0, Scene1, Scene2, Scene3, Scene4, Scene5]); // Array of scenes
+export const scenes = writable([Scene0, Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7]); // Array of scenes
 
 export const highlightStore = writable(null);
 export const highlightTarget = writable({ element: null, tab: null }); // New store for highlight target and tab

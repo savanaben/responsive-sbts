@@ -1,14 +1,19 @@
 <script>
-    import TwoPanelLayout from './TwoPanelLayout.svelte';
-    import LeftPanelContentButton from './leftPanelContentButton.svelte';
-    import OrganizerWithBackground from './OrganizerWithBackground.svelte';
-    import asset1 from './Asset-1.svg'; 
-    import { getBackgroundStyle, layoutMode, activeTab, highlightTarget, tabSwitchAndHighlight } from './stores.js';
+    import TwoPanelLayout from '../TwoPanelLayout.svelte';
+    import WaterOrganizer from '../WaterOrganizer.svelte';
+    import Avatar from '../Avatar.svelte';
+    import BannerImage from '../BannerImage.svelte'; // Import the BannerImage component
+    import { getBackgroundStyle, layoutMode, activeTab, highlightTarget, tabSwitchAndHighlight } from '../stores.js';
+    import ContainerComponent from '../ContainerComponent.svelte'; // Import the ContainerComponent
 
-    let backgroundImage = asset1;
 
-    // Listen to tabSwitchAndHighlight store
-    $: tabSwitchAndHighlight.subscribe(value => {
+    const bannerImagePath = '/border_waterdrop-full.png'; 
+
+    let cardStates = ['highlighted', 'hidden', 'hidden', 'hidden']; // States for each card
+
+
+ // Listen to tabSwitchAndHighlight store
+ $: tabSwitchAndHighlight.subscribe(value => {
         if (value === 'Organizer') {
             activeTab.set('Organizer');
             setTimeout(() => {
@@ -46,13 +51,38 @@
             }, 400); // Ensure the tab switch happens first
         }
     });
-</script>
 
-<TwoPanelLayout split="50/50" mode="stack" rightBackgroundImage={backgroundImage}>
+</script>
+<BannerImage imageUrl={bannerImagePath} /> 
+<TwoPanelLayout 
+leftBackgroundColor="#e6f5ef"
+rightBackgroundColor="#e6f5ef"
+stackedLeftBackgroundColor="#e6f5ef"
+stackedRightBackgroundColor="#e6f5ef"
+split="40/60"
+mode="stack"
+>
     <div slot="left">
-        <LeftPanelContentButton />
+        <Avatar 
+        imageUrl="Tabitha_Portrait_Themed.svg" 
+        name="Tabitha" 
+        text='<p style="margin-top:0;">I did the calculation too. I found that a person uses about 1,600 gallons of water in a year.</p><p>I put that <button class="highlight-button">information</button> on my poster.</p><p>Let’s see how much water we can save if we leave the water on for only some of the time while we brush our teeth.</p>'
+        />
+      <p><i>Select the <strong>Next</strong> button to continue.</i></p>
+
+      <ContainerComponent
+      borderColor="#FEC30D"
+      backgroundColor="#fff2cc"
+      title="Information"
+      body="<ul style='margin-bottom:0;'>
+              <li>Average number of times per day a person brushes teeth: 2</li>
+              <li>Average amount of time a person uses to brush teeth: 56 seconds</li>
+              <li>Typical water flow from faucet while a person brushes teeth: 0.04 gallon per second</li>
+            </ul>"
+      />
+
     </div>
     <div slot="right">
-        <OrganizerWithBackground />
+        <WaterOrganizer {cardStates} />
     </div>
 </TwoPanelLayout>

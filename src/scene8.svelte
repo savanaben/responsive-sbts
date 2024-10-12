@@ -1,11 +1,12 @@
 <script>
     import TwoPanelLayout from './TwoPanelLayout.svelte';
     import LeftPanelContentButton from './leftPanelContentButton.svelte';
-    import OrganizerWithBackground from './OrganizerWithBackground.svelte';
+    import WaterOrganizer from './WaterOrganizer.svelte';
     import asset1 from './Asset-1.svg'; 
     import { getBackgroundStyle, layoutMode, activeTab, highlightTarget, tabSwitchAndHighlight } from './stores.js';
 
     let backgroundImage = asset1;
+    let cardStates = ['visible', 'visible', 'highlighted', 'hidden']; // States for each card
 
     // Listen to tabSwitchAndHighlight store
     $: tabSwitchAndHighlight.subscribe(value => {
@@ -48,11 +49,11 @@
     });
 </script>
 
-<TwoPanelLayout split="50/50" mode="stack" rightBackgroundImage={backgroundImage}>
+<TwoPanelLayout split="40/60" mode="stack" rightBackgroundImage={backgroundImage}>
     <div slot="left">
         <LeftPanelContentButton />
     </div>
     <div slot="right">
-        <OrganizerWithBackground />
+        <WaterOrganizer {cardStates} />
     </div>
 </TwoPanelLayout>

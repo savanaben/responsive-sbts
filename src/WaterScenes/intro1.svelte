@@ -1,10 +1,9 @@
 <script>
     import { onMount } from 'svelte';
-    import SpeechBubble from './SpeechBubble.svelte';
-    import Avatar from './Avatar.svelte'; // Import the Avatar component
-    import msNassar from '../public/msNassar.svg';
-    import Tara_Left from '../public/Tara_Left_Standing.svg';
-    export let backgroundImageUrl = "DSC9369-Edit-Edit-sharpened.jpg.webp";
+    import SpeechBubble from '../SpeechBubble.svelte';
+    import Avatar from '../Avatar.svelte'; // Import the Avatar component
+    import Tabitha from '../../public/Tabitha_Right_Standing.svg';
+    export let backgroundImageUrl = "/TurnOffTheWater_BG.svg";
 
     let speechBubblesContainer;
     let flexContainer;
@@ -51,46 +50,35 @@
 <div class="outer-container">
     <div class="background-image" style="background-image: url({backgroundImageUrl})"></div>
     <div class="flex-container full-characters" class:is-hidden={isHeightExceeded}>
-        <img src={msNassar} alt="Dr. Nassar" class="character-left">
+        <img src={Tabitha} alt="Dr. Nassar" class="character-left">
         <div bind:this={speechBubblesContainer} class="speech-bubbles-container">
             <div class="speech-bubble-wrapper top">
                 <SpeechBubble 
-                    title="Dr. Nassar" 
+                    title="Tabitha" 
                     paragraphs={[
-                        "What a beautiful forest! Probably too much undergrowth for archeology...",
-                        "lorem ipsum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+                        "Hi, I’m Tabitha.",
+                        "It’s science fair time! This year, my project will be called “Turn Off the Water.”",
+                        "I’ll try to convince people to turn off the water while they are brushing their teeth.",
+                        "I’d like your help with my project.",
+                        "Select the Next button to continue."
+
+
                     ]}
                     listItems={[]}
-                />
-            </div>
-            <div class="speech-bubble-wrapper bottom">
-                <SpeechBubble 
-                    title="Tara" 
-                    paragraphs={[
-                        "Another speech bubble for testing. Tara has two paragraphs, this will surely ruin our spacing!",
-                        "It should be positioned below the first one."
-                    ]}
-                    listItems={[]}
-                    tailPosition="right"
                 />
             </div>
         </div>
-        <img src={Tara_Left} alt="Tara" class="character-right">
     </div>
     <div class="flex-container avatars-only" class:is-hidden={!isHeightExceeded}>
         <div class="avatars-container">
             <Avatar 
-                imageUrl="msNassar.svg" 
-                name="Dr. Nassar" 
-                text='<p>What a beautiful forest! Probably too much undergrowth for archeology...</p>
-                <p>Lorem ipsum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>'
-                textStyle="bubble"
-            />
-            <Avatar 
-                imageUrl="Tara_Left_Standing.svg" 
-                name="Tara" 
-                text='<p>Another speech bubble for testing. Tara has two paragraphs, this will surely ruin our spacing!</p>
-                <p>It should be positioned below the first one.</p>'
+                imageUrl="Tabitha_Right_Standing.svg" 
+                name="Tabitha" 
+                text='<p>Hi, I’m Tabitha.</p>
+                <p>It’s science fair time! This year, my project will be called “Turn Off the Water.”</p>
+                <p>I’ll try to convince people to turn off the water while they are brushing their teeth.</p>
+                <p>I’d like your help with my project.</p>
+                <p>Select the Next button to continue.</p>'
                 textStyle="bubble"
             />
         </div>

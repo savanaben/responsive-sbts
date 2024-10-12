@@ -1,5 +1,5 @@
 <script>
-    import { layoutMode, currentSceneIndex, scenes } from './stores.js';
+    import { layoutMode, currentSceneIndex, currentGroupIndex, currentScenes } from './stores.js';
     import { derived } from 'svelte/store';
 
     function setMode(mode) {
@@ -8,40 +8,55 @@
 
     // Function to go to the next scene with wrapping
     function nextScene() {
-        currentSceneIndex.update(n => (n + 1) % $scenes.length);
+        currentSceneIndex.update(n => {
+            const group = $currentScenes;
+            const newIndex = (n + 1) % group.length;
+            console.log('Next Scene Index:', newIndex);
+            return newIndex;
+        });
     }
 
     // Function to go to the previous scene with wrapping
     function prevScene() {
-        currentSceneIndex.update(n => (n - 1 + $scenes.length) % $scenes.length);
+        currentSceneIndex.update(n => {
+            const group = $currentScenes;
+            const newIndex = (n - 1 + group.length) % group.length;
+            console.log('Previous Scene Index:', newIndex);
+            return newIndex;
+        });
+    }
+
+    // Function to change the current scene group
+    function changeSceneGroup(index) {
+        currentGroupIndex.set(index);
+        currentSceneIndex.set(0); // Reset to the first scene in the new group
+        console.log('Changed Scene Group:', index);
     }
 
     // Derived store to get the current scene text
-    const sceneText = derived(currentSceneIndex, $currentSceneIndex => {
-        switch ($currentSceneIndex) {
-            case 0:
-                return "";
-            case 1:
-                return "2 column layout with multiple tabs";
-            case 2:
-                return "2 column stacks";
-            case 3:
-                return "2 column changes to tabs";
-            case 4:
-                return "Standard passage with sidebars";
-            case 5:
-                return "Banner image passage";
-            case 6:
-                return "fluid intro test 1 - keep avatars";
-            case 7:
-                return "fluid intro test 2 - avatar circles";
-            default:
-                return "";
+    const sceneText = derived(
+        [currentSceneIndex, currentScenes],
+        ([$currentSceneIndex, $currentScenes]) => {
+            const sceneDescriptions = [
+                "Scene 1: 2 column layout with multiple tabs",
+                "Scene 2: 2 column stacks",
+                "Scene 3: 2 column changes to tabs. I don't think we'd take this option unless the right column is persistent.",
+                "Scene 4: Standard passage with sidebars",
+                "Scene 5: Banner image passage",
+                "Scene 6: fluid intro test 1 - keep avatars",
+                "Scene 7: fluid intro test 2 - avatar circles",
+                "Scene 8: organizer test"
+            ];
+            return sceneDescriptions[$currentSceneIndex];
         }
-    });
+    );
 </script>
 
 <div class="toolbar">
+    <select class="toolbar-select" on:change="{(e) => changeSceneGroup(e.target.value === '0' ? 0 : 1)}">
+        <option value="0">Task</option>
+        <option value="1">Playground</option>
+    </select>
     <button class="toolbar-button" on:click={prevScene}>Back</button>
     <button class="toolbar-button" on:click={nextScene}>Next</button>
     {#if $currentSceneIndex === 1}
@@ -66,7 +81,7 @@
         padding: 0 6px; /* Add some padding */
     }
 
-    .toolbar-button {
+    .toolbar-button, .toolbar-select {
         margin: 6px;
         font-size: 20px;
         border-color: transparent;
@@ -77,8 +92,12 @@
         display: flex; /* Enable flexbox */
         align-items: center; /* Center the text vertically */
         justify-content: center; /* Center the text horizontally */
+        padding: 0 12px; /* Add padding for the select */
     }
 
+    .toolbar-select {
+        cursor: pointer; /* Change cursor to pointer */
+    }
     .scene-text {
         font-size: 18px;
         margin-left: auto; /* Push the text to the right */

@@ -1,19 +1,25 @@
 <script>
-    import { currentSceneIndex, scenes } from './stores.js';
+    import { currentSceneIndex, currentScenes } from './stores.js';
     import Toolbar from './toolbar.svelte';
+    import { onDestroy } from 'svelte';
 
-    let currentScenes;
-    scenes.subscribe(value => {
-        currentScenes = value;
+    let scenes = [];
+    const unsubscribe = currentScenes.subscribe(value => {
+        scenes = value;
+        console.log('Current Scenes:', scenes);
     });
 
+    $: console.log('Current Scene Index:', $currentSceneIndex);
 
+    onDestroy(() => {
+        unsubscribe();
+    });
 </script>
 
 <main>
     <div class="app-container">
         <Toolbar></Toolbar>
-		<svelte:component this={currentScenes[$currentSceneIndex]} />        
+        <svelte:component this={scenes[$currentSceneIndex]} />
     </div>
 </main>
 
@@ -24,10 +30,7 @@
         height: 100vh;
         width: 100%;
         box-sizing: border-box;
-		overflow: hidden;
-		background-color: rgb(246, 246, 246);
+        overflow: hidden;
+        background-color: rgb(246, 246, 246);
     }
-
-
-
 </style>

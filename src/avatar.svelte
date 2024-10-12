@@ -52,6 +52,7 @@
       display: flex;
       align-items: center;
       align-items: flex-start;
+      margin-bottom: 1rem;
   }
 
   .text-content {
@@ -61,7 +62,7 @@
   }
 
   .text-content.default {
-      /* Default styles */
+      line-height:  1.1;
   }
 
   .text-content.bubble {

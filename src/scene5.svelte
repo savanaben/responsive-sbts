@@ -1,6 +1,8 @@
 <script>
     export let imageUrl = "Laughingwater-Creek.jpg";
     export let topImageUrl = "DSC9369-Edit-Edit-sharpened.jpg.webp";
+    import ImageWrapper from './ImageWrapper.svelte'; // Import the new ImageWrapper component
+
 </script>
 
 <div class="outer-container">
@@ -9,9 +11,8 @@
         <h1 class="content-block">A Serene Retreat</h1>
         <p class="content-block passage-text">To demo, zoom up and decrease the window width. Note how only the image horizontally scrolls. Tables can also be handled this way.</p>
         <p class="content-block passage-text">This text remains within the window and does not horizontally scroll. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <div class="image-wrapper">
-            <img src={imageUrl} alt="Placeholder Image">
-        </div>
+        <ImageWrapper {imageUrl} fixedWidth = 700 mode="fixed" />
+        <p class="content-block passage-text">This image is set to 1000px wide. It's wider than the container it's in, so it get's horizontal scrolling even at 100% zoom.</p>
         <p class="content-block caption">A peaceful woodland stream. Do images go marginless at high zoom, as is shown, to maximize view area?</p>
         <h2 class="content-block">Primary Heading</h2>
         <p class="content-block passage-text">This text also remains within the window and does not horizontally scroll. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>

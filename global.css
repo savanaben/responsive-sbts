@@ -10,7 +10,7 @@ body {
 	margin: 0;
 
 	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-family: calibri, sans-serif;
 }
 
 h1 {
@@ -180,4 +180,21 @@ button:focus {
 
 .text-content.bubble .last-paragraph {
 	margin-bottom: 0; /* Remove bottom margin for the last paragraph */
+}
+
+
+
+
+
+
+
+
+* {
+    scrollbar-width: 18px;  
+    scrollbar-color: #2478CC #F2FAFF;  
+}
+
+/* For Internet Explorer and Edge */
+body {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
 }

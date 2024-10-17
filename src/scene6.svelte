@@ -3,7 +3,7 @@
     import SpeechBubble from './SpeechBubble.svelte';
     import msNassar from '../public/msNassar.svg';
     import Tara_Left from '../public/Tara_Left_Standing.svg';
-    export let backgroundImageUrl = "DSC9369-Edit-Edit-sharpened.jpg.webp";
+    export let backgroundImageUrl = "DSC9369EditEditsharpenedjpg.webp";
 
     let speechBubblesContainer;
     let flexContainer;

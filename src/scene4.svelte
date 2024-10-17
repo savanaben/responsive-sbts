@@ -10,11 +10,17 @@
         <h1 class="content-block">A Serene Retreat</h1>
         <p class="content-block passage-text">To demo, zoom up and decrease the window width. Note how only the image horizontally scrolls. Tables can also be handled this way.</p>
         <p class="content-block passage-text">This image is set to 500px wide.</p>
-        <ImageWrapper {imageUrl} fixedWidth = 500 mode="fixed" />
+        <div class="content-block-image">
+             <ImageWrapper {imageUrl} fixedWidth = 500 mode="fixed" />
+        </div>
         <p class="content-block passage-text">This image is set to 1000px wide. It's wider than the container it's in, so it get's horizontal scrolling even at 100% zoom.</p>
-        <ImageWrapper {imageUrl} fixedWidth = 1000 mode="fixed" /> 
+        <div class="content-block-image">
+            <ImageWrapper {imageUrl} fixedWidth = 1000 mode="fixed" /> 
+        </div>
         <p class="content-block passage-text">This image is set to 650px wide.</p>
-        <ImageWrapper {imageUrl} fixedWidth = 650 mode="fixed" /> 
+        <div class="content-block-image">
+            <ImageWrapper {imageUrl} fixedWidth = 650 mode="fixed" /> 
+        </div>    
         <p class="content-block caption">A peaceful woodland stream. Do images go marginless at high zoom, as is shown, to maximize view area?</p>
         <h2 class="content-block">Primary Heading</h2>
         <p class="content-block passage-text">This text also remains within the window and does not horizontally scroll. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
@@ -50,7 +56,7 @@
         padding: 48px 0px 48px 0px;
     }
 
-    .content-block {
+    .content-block, .content-block-image {
         padding: 0px 64px 0px 64px;
     }
 
@@ -58,6 +64,13 @@
     @media (max-width: 828px) {
         .content-block {
             padding: 0px 5% 0px 5%;
+        }
+    }
+
+        /* Media query for screens smaller than 828px */
+        @media (max-width: 828px) {
+        .content-block-image {
+            padding: 0 0 0 5%;
         }
     }
 

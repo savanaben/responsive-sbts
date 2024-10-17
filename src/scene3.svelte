@@ -23,7 +23,7 @@
     ];
 
     // Reactive statement to set the active tab based on the breakpoint
-    $: if ($breakpoint > 800) {
+    $: if ($breakpoint > 1000) {
         activeTab.set('Activity');
     }
 
@@ -69,7 +69,7 @@
 </script>
 
 <div>
-    {#if $breakpoint > 800}
+    {#if $breakpoint > 1000}
         <div class="layout">
             <div class="panel">
                 <LeftPanelContentButton />
@@ -107,12 +107,12 @@
         background-repeat: no-repeat; /* Prevent the image from repeating */
     }
 
-    @media (min-width: 800px) {
+    @media (min-width: 1000px) {
         .panel {
             flex: 1; 
         }
     }
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
         .panel {
             height: auto; /* Set the height of the panels to auto */
         }

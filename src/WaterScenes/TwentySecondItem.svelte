@@ -5,16 +5,44 @@
     import Submit from '../Submit.svelte';
     import BannerImage from '../BannerImage.svelte'; // Import the BannerImage component
     import ContainerComponent from '../ContainerComponent.svelte'; // Import the ContainerComponent
+    import ImageWrapper from '../ImageWrapper.svelte'; // Import the ImageWrapper component
+    import TextInputBox from '../TextInputBox.svelte'; 
 
     const bannerImagePath = 'border_waterdrop-full.png'; // Specify the path to your banner image
 
+    let inputValue = '';
 
     const options = [
-        { text: '1000 feet', color: '#ff0000' },
-        { text: '20,000 feet', color: '#00ff00' },
-        { text: '20,000 feet', color: '#00ff00' },
-        { text: '20,000 feet', color: '#00ff00' }
+        { text: '10', color: '#ff0000' },
+        { text: '20', color: '#00ff00' },
+        { text: '20', color: '#00ff00' },
+        { text: '20', color: '#00ff00' }
     ];
+
+        // MathML content for the expression
+        const mathML = `
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+                <mn>34</mn>
+                <mo>+</mo>
+                <mn>454</mn>
+                <mo>+</mo>
+                <mn>2,000</mn>
+                <mo>+</mo>
+                <mn>1,345</mn>
+                 <mo>+</mo>
+                <mn>2,000</mn>
+                <mo>+</mo>
+                <mn>1,345</mn>
+                 <mo>+</mo>
+                <mn>2,000</mn>
+                <mo>+</mo>
+                <mn>1,345</mn>
+            </mrow>
+        </math>
+    `;
+
+
 </script>
 <BannerImage imageUrl={bannerImagePath} /> <!-- Use the BannerImage component -->
 
@@ -30,7 +58,7 @@
     <Avatar 
     imageUrl="Tabitha_Portrait_Themed.svg" 
     name="Tabitha" 
-    text='Here’s some information we need to find out how much water we use while we brush our teeth.</p>'
+    text='<p style="margin-top:0;">I wonder how much water a person would use if the water is left on for only 20 seconds rather than 56 seconds while brushing teeth.</p><p>We can use the expression on the poster to find out.</p>'
     />
     <ContainerComponent
             borderColor="#FEC30D"
@@ -44,8 +72,14 @@
         />
     </div>
     <div slot="right">
-        <p class="no-top-margin">Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the </p>
-        <MultipleChoice {options} />
+        <p class="no-top-margin">Lorem Ipsum is simply dummy text of the. </p>
+        <ImageWrapper contentType="mathml" mathMLContent={mathML} fixedWidth = 500 mode="fixed" />
+        <p>Lorem Ipsum is simply dummy text of the printing Lorem. </p>
+        <TextInputBox 
+             leadingText=""
+              followingText="units"
+              bind:value={inputValue}
+        />
         <Submit/>
     </div>
 </TwoPanelLayout>

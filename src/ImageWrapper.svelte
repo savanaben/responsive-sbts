@@ -201,7 +201,7 @@
     /* Media query for screens smaller than 828px */
     @media (max-width: 828px) {
         .outer-wrapper {
-            padding: 0 5%; /* Adjust padding for smaller screens */
+            padding: 0; /* Adjust padding for smaller screens */
         }
     }
 </style>

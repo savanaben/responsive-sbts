@@ -24,11 +24,11 @@
         padding: 8px 24px;
         font-size: 24px;
         color: white;
-        background-color: #007bff; /* Blue background color */
+        background-color: #2478CC ; /* Blue background color */
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.2s;
     }
 
     .submit-button:hover {

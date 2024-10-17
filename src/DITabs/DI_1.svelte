@@ -2,11 +2,11 @@
     import TwoPanelLayout from '../TwoPanelLayout.svelte';
     import Avatar from '../Avatar.svelte';
     import MultipleChoice from '../MultipleChoice.svelte';
-    import Submit from '../Submit.svelte';
-    import BannerImage from '../BannerImage.svelte'; // Import the BannerImage component
-    import ContainerComponent from '../ContainerComponent.svelte'; // Import the ContainerComponent
+    import ContainerComponent from '../ContainerComponent.svelte'; 
+    import ImagePlaceholder from '../ImagePlaceholder.svelte'; 
+    import ImageWrapper from '../ImageWrapper.svelte'; 
 
-    const bannerImagePath = 'border_waterdrop-full.png'; // Specify the path to your banner image
+    export let imageUrl = "Laughingwater-Creek.jpg";
 
 
     const options = [
@@ -16,23 +16,22 @@
         { text: '20,000 feet', color: '#00ff00' }
     ];
 </script>
-<BannerImage imageUrl={bannerImagePath} /> <!-- Use the BannerImage component -->
 
 <TwoPanelLayout 
-    leftBackgroundColor="#e6f5ef"
-    rightBackgroundColor="white"
-    stackedLeftBackgroundColor="#e6f5ef"
-    stackedRightBackgroundColor="#e6f5ef"
+    leftBackgroundColor=""
+    rightBackgroundColor=""
+    stackedLeftBackgroundColor=""
+    stackedRightBackgroundColor=""
     split="40/60"
     mode="stack"
 >
     <div slot="left">
-    <Avatar 
-    imageUrl="Tabitha_Portrait_Themed.svg" 
-    name="Tabitha" 
-    text='Here’s some information we need to find out how much water we use while we brush our teeth.</p>'
-    />
-    <ContainerComponent
+        <Avatar 
+            imageUrl="Tabitha_Portrait_Themed.svg" 
+            name="Tabitha" 
+            text='Here’s some information we need to find out how much water we use while we brush our teeth.</p>'
+        />
+        <ContainerComponent
             borderColor="#FEC30D"
             backgroundColor="#fff2cc"
             title="Information"
@@ -43,10 +42,14 @@
                   </ul>"
         />
     </div>
+
     <div slot="right">
         <p class="no-top-margin">Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the </p>
+        <p class="no-top-margin">Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the </p>
+        <p class="no-top-margin">Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the </p>
+        <!-- <ImageWrapper {imageUrl} fixedWidth = 1000 mode="fixed" />  -->
         <MultipleChoice {options} />
-        <Submit/>
+        <ImagePlaceholder width={800} height={200} />
     </div>
 </TwoPanelLayout>
 
@@ -54,5 +57,5 @@
     .no-top-margin:first-of-type {
         margin-top: 0;
     }
-    
+   
 </style>

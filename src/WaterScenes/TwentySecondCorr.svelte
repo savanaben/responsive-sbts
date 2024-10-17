@@ -9,7 +9,7 @@
 
     const bannerImagePath = 'border_waterdrop-full.png'; 
 
-    let cardStates = ['highlighted', 'hidden', 'hidden', 'hidden']; // States for each card
+    let cardStates = ['visible', 'highlighted', 'visible', 'highlighted']; // States for each card
 
 
  // Listen to tabSwitchAndHighlight store
@@ -66,20 +66,9 @@ mode="stack"
         <Avatar 
         imageUrl="Tabitha_Portrait_Themed.svg" 
         name="Tabitha" 
-        text='<p style="margin-top:0;">I did the calculation too. I found that a person uses about 1,600 gallons of water in a year.</p><p>I put that <button class="highlight-button">information</button> on my poster.</p><p>Let’s see how much water we can save if we leave the water on for only some of the time while we brush our teeth.</p>'
+        text='<p style="margin-top:0;">A person can save about 1,000 gallons of water in a year if the water is left on for only 20 seconds instead of 56 seconds while brushing teeth.</p><p>That’s a lot of water!</p><p>I put that <button class="highlight-button">information</button> on my poster.</p>'
         />
       <p><i>Select the <strong>Next</strong> button to continue.</i></p>
-
-      <ContainerComponent
-      borderColor="#FEC30D"
-      backgroundColor="#fff2cc"
-      title="Information"
-      body="<ul style='margin-bottom:0;'>
-              <li>Average number of times per day a person brushes teeth: 2</li>
-              <li>Average amount of time a person uses to brush teeth: 56 seconds</li>
-              <li>Typical water flow from faucet while a person brushes teeth: 0.04 gallon per second</li>
-            </ul>"
-      />
 
     </div>
     <div slot="right">

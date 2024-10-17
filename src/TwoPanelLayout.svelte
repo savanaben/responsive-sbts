@@ -1,4 +1,6 @@
 <script>
+    import { onMount, onDestroy } from 'svelte';
+
     export let leftBackgroundImage = '';
     export let rightBackgroundImage = '';
     export let split = '50/50'; // Options: '50/50', '40/60', '60/40'
@@ -8,7 +10,8 @@
     export let stackedLeftBackgroundColor = 'white'; // Background color for the left panel when stacked
     export let stackedRightBackgroundColor = 'white'; // Background color for the right panel when stacked
 
-
+    let layoutHeight;
+    let resizeObserver;
     // Determine flex values based on the split prop
     let leftFlex, rightFlex;
     $: {
@@ -22,9 +25,38 @@
             rightFlex = 0.4;
         }
     }
+
+    function calculateLayoutHeight() {
+        const toolbar = document.querySelector('.toolbar');
+        const tabsButtons = document.querySelector('.tabs-buttons');
+        const bannerImage = document.querySelector('.banner-image-wrapper');
+
+        let totalOffset = 0;
+        if (toolbar) totalOffset += toolbar.offsetHeight;
+        if (tabsButtons) totalOffset += tabsButtons.offsetHeight;
+        if (bannerImage) totalOffset += bannerImage.offsetHeight;
+
+        layoutHeight = `calc(100vh - ${totalOffset}px)`;
+    }
+
+    onMount(() => {
+        calculateLayoutHeight();
+        resizeObserver = new ResizeObserver(calculateLayoutHeight);
+        resizeObserver.observe(document.body);
+        window.addEventListener('resize', calculateLayoutHeight);
+    });
+
+    onDestroy(() => {
+        if (resizeObserver) {
+            resizeObserver.disconnect();
+        }
+        window.removeEventListener('resize', calculateLayoutHeight);
+    });
 </script>
 
-<div class="layout" class:stack={mode === 'stack'} style="--left-bg-color: {leftBackgroundColor}; --right-bg-color: {rightBackgroundColor}; --stacked-left-bg-color: {stackedLeftBackgroundColor}; --stacked-right-bg-color: {stackedRightBackgroundColor};">
+<div class="layout" 
+     class:stack={mode === 'stack'} 
+     style="--layout-height: {layoutHeight}; --left-bg-color: {leftBackgroundColor}; --right-bg-color: {rightBackgroundColor}; --stacked-left-bg-color: {stackedLeftBackgroundColor}; --stacked-right-bg-color: {stackedRightBackgroundColor};">
     <div class="panel left" style="flex: {leftFlex}; background-image: url('{leftBackgroundImage}');">
         <slot name="left"></slot>
     </div>
@@ -37,9 +69,10 @@
     .layout {
         display: flex;
         flex-wrap: wrap;
-        overflow-y: auto;
-        height: calc(100vh - 110px);
+        overflow: auto;
+        height: var(--layout-height);
         align-content: flex-start;
+        width: 100%;
     }
 
     .panel {
@@ -47,7 +80,9 @@
         background-size: cover;
         background-position: bottom;
         background-repeat: no-repeat;
-        height: calc(100vh - 110px);
+        height: var(--layout-height);
+        overflow-y: auto;
+        min-width: 0;
     }
 
     .left {
@@ -72,14 +107,17 @@
     }
 
     @media (max-width: 1000px) {
+        .layout.stack {
+            display: block;
+            overflow-x: auto;
+        }
         .layout.stack .panel {
-            flex: 1 0 100% !important;
+            width: 100%;
             height: auto;
         }
         .layout.stack .panel.left {
             background-color: var(--stacked-left-bg-color);
-            padding-bottom: 0; /* Remove top padding for the right panel when stacked */
-
+            padding-bottom: 0;
         }
         .layout.stack .panel.right {
             background-color: var(--stacked-right-bg-color);

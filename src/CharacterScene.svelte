@@ -1,42 +1,52 @@
 <script>
     import { onMount } from 'svelte';
-    import SpeechBubble from '../SpeechBubble.svelte';
-    import Avatar from '../Avatar.svelte'; // Import the Avatar component
-    import Tabitha from '../../public/Tabitha_Right_Standing.svg';
-    export let backgroundImageUrl = "TurnOffTheWater_BG.svg";
+    import SpeechBubble from './SpeechBubble.svelte';
+    import Avatar from './Avatar.svelte';
+
+    // Props
+    export let backgroundImageUrl;
+    export let leftAvatarImage;
+    export let rightAvatarImage;
+    export let leftSpeechBubbleTitle;
+    export let leftSpeechBubbleParagraphs = [];
+    export let rightSpeechBubbleTitle;
+    export let rightSpeechBubbleParagraphs = [];
+    export let showLeftAvatar = true;
+    export let showRightAvatar = true;
+    export let showLeftSpeechBubble = true;
+    export let showRightSpeechBubble = true;
 
     let speechBubblesContainer;
-    let flexContainer;
-    let isHeightExceeded = false; // New state to track if height is exceeded
+    let isHeightExceeded = false;
 
     function checkHeight() {
-    const children = speechBubblesContainer.children;
-    let combinedHeight = 0;
-    for (let i = 0; i < children.length; i++) {
-        combinedHeight += children[i].scrollHeight;
+        const children = speechBubblesContainer.children;
+        let combinedHeight = 0;
+        for (let i = 0; i < children.length; i++) {
+            combinedHeight += children[i].scrollHeight;
+        }
+
+        const appContainer = document.querySelector('.app-container');
+        const appContainerHeight = appContainer.clientHeight - 60;
+
+        console.log('combinedHeight:', combinedHeight);
+        console.log('appContainerHeight:', appContainerHeight);
+
+        const flexContainer = document.querySelector('.flex-container.full-characters');
+        const viewportWidth = window.innerWidth;
+        const flexContainerWidth = flexContainer.clientWidth;
+
+        console.log('flexContainerWidth:', flexContainerWidth);
+        console.log('viewportWidth:', viewportWidth);
+
+        const marginOfError = 1;
+
+        if (combinedHeight > appContainerHeight || flexContainerWidth > (viewportWidth + marginOfError)) {
+            isHeightExceeded = true;
+        } else {
+            isHeightExceeded = false;
+        }
     }
-
-    const appContainer = document.querySelector('.app-container');
-    const appContainerHeight = appContainer.clientHeight - 60; // Subtract 60px for the top toolbar
-
-    console.log('combinedHeight:', combinedHeight);
-    console.log('appContainerHeight:', appContainerHeight);
-
-    const flexContainer = document.querySelector('.flex-container.full-characters');
-    const viewportWidth = window.innerWidth;
-    const flexContainerWidth = flexContainer.clientWidth;
-
-    console.log('flexContainerWidth:', flexContainerWidth);
-    console.log('viewportWidth:', viewportWidth);
-
-    const marginOfError = 1; // Margin of error in pixels
-
-    if (combinedHeight > appContainerHeight || flexContainerWidth > (viewportWidth + marginOfError)) {
-        isHeightExceeded = true; // Set the state to true
-    } else {
-        isHeightExceeded = false; // Set the state to false
-    }
-}
 
     onMount(() => {
         checkHeight();
@@ -50,37 +60,52 @@
 <div class="outer-container">
     <div class="background-image" style="background-image: url({backgroundImageUrl})"></div>
     <div class="flex-container full-characters" class:is-hidden={isHeightExceeded}>
-        <img src={Tabitha} alt="Dr. Nassar" class="character-left">
+        {#if showLeftAvatar && leftAvatarImage}
+            <img src={leftAvatarImage} alt="Left Character" class="character-left">
+        {/if}
         <div bind:this={speechBubblesContainer} class="speech-bubbles-container">
-            <div class="speech-bubble-wrapper top">
-                <SpeechBubble 
-                    title="Tabitha" 
-                    paragraphs={[
-                        "Hi, I’m Tabitha.",
-                        "It’s science fair time! This year, my project will be called “Turn Off the Water.”",
-                        "I’ll try to convince people to turn off the water while they are brushing their teeth.",
-                        "I’d like your help with my project.",
-                        "Select the Next button to continue."
-
-
-                    ]}
-                    listItems={[]}
-                />
-            </div>
+            {#if showLeftSpeechBubble && leftSpeechBubbleTitle}
+                <div class="speech-bubble-wrapper top">
+                    <SpeechBubble 
+                        title={leftSpeechBubbleTitle} 
+                        paragraphs={leftSpeechBubbleParagraphs}
+                        listItems={[]}
+                    />
+                </div>
+            {/if}
+            {#if showRightSpeechBubble && rightSpeechBubbleTitle}
+                <div class="speech-bubble-wrapper bottom">
+                    <SpeechBubble 
+                        title={rightSpeechBubbleTitle} 
+                        paragraphs={rightSpeechBubbleParagraphs}
+                        listItems={[]}
+                        tailPosition="right"
+                    />
+                </div>
+            {/if}
         </div>
+        {#if showRightAvatar && rightAvatarImage}
+            <img src={rightAvatarImage} alt="Right Character" class="character-right">
+        {/if}
     </div>
     <div class="flex-container avatars-only" class:is-hidden={!isHeightExceeded}>
         <div class="avatars-container">
-            <Avatar 
-                imageUrl="Tabitha_Right_Standing.svg" 
-                name="Tabitha" 
-                text='<p>Hi, I’m Tabitha.</p>
-                <p>It’s science fair time! This year, my project will be called “Turn Off the Water.”</p>
-                <p>I’ll try to convince people to turn off the water while they are brushing their teeth.</p>
-                <p>I’d like your help with my project.</p>
-                <p>Select the Next button to continue.</p>'
-                textStyle="bubble"
-            />
+            {#if showLeftAvatar && leftAvatarImage}
+                <Avatar 
+                    imageUrl={leftAvatarImage} 
+                    name={leftSpeechBubbleTitle} 
+                    text={showLeftSpeechBubble ? leftSpeechBubbleParagraphs.map(p => `<p>${p}</p>`).join('') : ''}
+                    textStyle={showLeftSpeechBubble ? "bubble" : "none"}
+                />
+            {/if}
+            {#if showRightAvatar && rightAvatarImage}
+                <Avatar 
+                    imageUrl={rightAvatarImage} 
+                    name={rightSpeechBubbleTitle} 
+                    text={showRightSpeechBubble ? rightSpeechBubbleParagraphs.map(p => `<p>${p}</p>`).join('') : ''}
+                    textStyle={showRightSpeechBubble ? "bubble" : "none"}
+                />
+            {/if}
         </div>
     </div>
 </div>
@@ -165,7 +190,7 @@
         /* height: calc(100% - 60px); Set height to 100% minus the toolbar height */
         height: -webkit-fill-available;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0rem;
         justify-content: flex-start;
         overflow: auto;
     }

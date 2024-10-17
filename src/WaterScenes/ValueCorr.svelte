@@ -9,7 +9,7 @@
 
     const bannerImagePath = 'border_waterdrop-full.png'; 
 
-    let cardStates = ['highlighted', 'hidden', 'hidden', 'hidden']; // States for each card
+    let cardStates = ['visible', 'hidden', 'highlighted', 'hidden']; // States for each card
 
 
  // Listen to tabSwitchAndHighlight store
@@ -66,7 +66,7 @@ mode="stack"
         <Avatar 
         imageUrl="Tabitha_Portrait_Themed.svg" 
         name="Tabitha" 
-        text='<p style="margin-top:0;">I did the calculation too. I found that a person uses about 1,600 gallons of water in a year.</p><p>I put that <button class="highlight-button">information</button> on my poster.</p><p>Let’s see how much water we can save if we leave the water on for only some of the time while we brush our teeth.</p>'
+        text='<p style="margin-top:0;">I put this <button class="highlight-button">expression</button> on my poster.</p>'
         />
       <p><i>Select the <strong>Next</strong> button to continue.</i></p>
 

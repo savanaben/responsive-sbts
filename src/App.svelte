@@ -1,25 +1,18 @@
 <script>
-    import { currentSceneIndex, currentScenes } from './stores.js';
+    import { currentSceneIndex, currentScenes, allScenes, currentGroupIndex } from './stores.js';
     import Toolbar from './toolbar.svelte';
     import { onDestroy } from 'svelte';
 
-    let scenes = [];
-    const unsubscribe = currentScenes.subscribe(value => {
-        scenes = value;
-        console.log('Current Scenes:', scenes);
-    });
+    $: currentScene = $currentScenes[$currentSceneIndex].component;
 
-    $: console.log('Current Scene Index:', $currentSceneIndex);
-
-    onDestroy(() => {
-        unsubscribe();
-    });
+    console.log('Current Scene Index:', $currentSceneIndex);
+    console.log('Current Group Index:', $currentGroupIndex);
 </script>
 
 <main>
     <div class="app-container">
-        <Toolbar></Toolbar>
-        <svelte:component this={scenes[$currentSceneIndex]} />
+        <Toolbar />
+        <svelte:component this={currentScene} />
     </div>
 </main>
 

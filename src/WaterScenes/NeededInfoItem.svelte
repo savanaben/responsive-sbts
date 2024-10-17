@@ -5,7 +5,7 @@
     import Submit from '../Submit.svelte';
     import BannerImage from '../BannerImage.svelte'; // Import the BannerImage component
 
-    const bannerImagePath = '/border_waterdrop-full.png'; // Specify the path to your banner image
+    const bannerImagePath = 'border_waterdrop-full.png'; // Specify the path to your banner image
 
 
     const options = [

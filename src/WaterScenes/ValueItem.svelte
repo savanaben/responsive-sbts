@@ -7,7 +7,7 @@
     import ContainerComponent from '../ContainerComponent.svelte'; // Import the ContainerComponent
     import ImageWrapper from '../ImageWrapper.svelte'; // Import the ImageWrapper component
 
-    const bannerImagePath = '/border_waterdrop-full.png'; // Specify the path to your banner image
+    const bannerImagePath = 'border_waterdrop-full.png'; // Specify the path to your banner image
 
 
     const options = [

@@ -33,7 +33,7 @@
         position: relative; /* Ensure the position context for the pseudo-element */
     }
 
-    @media (max-width: 799px) {
+    @media (max-width: 1000px) {
         .background::before {
             content: '';
             position: absolute;

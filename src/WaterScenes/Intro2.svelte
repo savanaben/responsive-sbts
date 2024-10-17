@@ -4,7 +4,7 @@
     import Avatar from '../Avatar.svelte';
     import BannerImage from '../BannerImage.svelte'; // Import the BannerImage component
 
-    const bannerImagePath = '/border_waterdrop-full.png'; 
+    const bannerImagePath = 'border_waterdrop-full.png'; 
 
     let cardStates = ['hidden', 'hidden', 'hidden', 'hidden']; // States for each card
 

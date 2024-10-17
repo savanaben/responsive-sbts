@@ -1,21 +1,24 @@
 <script>
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import { pulseHighlight } from './stores.js'; // Import pulseHighlight from stores.js
     export let title = "TURN OFF THE WATER";
     export let subtitle = "By Tabitha";
     export let cards = [
         { content: "A person uses about 1,600 gallons of water in a year if the water is left on while brushing teeth." },
-        { content: "Gallons of water used by a person in a year if the water is left on for t seconds while brushing teeth: 2 × t × 0.04 × 365" },
         { content: "A person who leaves the water on for 20 seconds instead of 56 seconds uses about 600 gallons of water instead of 1,600 gallons." },
+        { content: "Gallons of water used by a person in a year if the water is left on for t seconds while brushing teeth: 2 × t × 0.04 × 365" },
         { content: "1,600 – 600 = 1,000 A person can save about 1,000 gallons of water in a year." }
     ];
-    export let imageSrc = "/Faucet.svg"; // Replace with actual image path
+    export let imageSrc = "Faucet.svg"; // Replace with actual image path
    
     // Array of states for each card, controlling visibility and highlight
     export let cardStates = []; // Example: ['visible', 'highlighted', 'hidden']
 
     let container;
     let layoutClass = 'large-layout';
+    let resizeObserver;
+    let checkInterval;
+    
 
     const updateLayout = () => {
         const width = container.clientWidth;
@@ -30,8 +33,26 @@
 
     onMount(() => {
         updateLayout();
+        
+        // Set up ResizeObserver
+        resizeObserver = new ResizeObserver(updateLayout);
+        resizeObserver.observe(container);
+
+        // Set up periodic checks
+        checkInterval = setInterval(updateLayout, 1000); // Check every second
+
+        // Keep the existing window resize listener
         window.addEventListener('resize', updateLayout);
-        return () => window.removeEventListener('resize', updateLayout);
+    });
+
+    onDestroy(() => {
+        if (resizeObserver) {
+            resizeObserver.disconnect();
+        }
+        if (checkInterval) {
+            clearInterval(checkInterval);
+        }
+        window.removeEventListener('resize', updateLayout);
     });
 </script>
 

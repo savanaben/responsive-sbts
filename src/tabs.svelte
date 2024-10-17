@@ -4,6 +4,7 @@
 
     export let tabs = [];
     export let activeTab;
+    export let paddingOption = 'Padding'; // New prop with default value 'Padding'
 
     let tabContent;
 
@@ -48,7 +49,10 @@
             </button>
         {/each}
     </div>
-    <div class="tab-content" bind:this={tabContent} style="background-image: {tabs.find(tab => tab.title === $activeTab)?.backgroundImage || 'none'}; background-size: cover; background-position: bottom; background-repeat: no-repeat;">
+    <div class="tab-content" 
+         class:no-padding={paddingOption === 'NoPadding'}
+         bind:this={tabContent} 
+         style="background-image: {tabs.find(tab => tab.title === $activeTab)?.backgroundImage || 'none'}; background-size: cover; background-position: bottom; background-repeat: no-repeat;">
         {#if $activeTab}
             {#each tabs as tab}
                 {#if tab.title === $activeTab && !tab.action}
@@ -64,6 +68,8 @@
         display: flex; /* Use Flexbox */
         flex-direction: column; /* Stack children vertically */
         height: 100%; /* Ensures the container takes up the full height of its parent */
+        max-width: 1366px;
+        margin: auto;
     }
     .tabs-buttons {
         position: sticky; /* Makes the tab buttons sticky */
@@ -74,13 +80,15 @@
         border-bottom: 1px solid #c0c0c0;
         border-radius: 6px 6px 0px 0px;
         display: flex;
+        background-color: #f8f8f8;
     }
     .tab-buttons {
         position: sticky; /* Makes the tab buttons sticky */
         top: 0; /* Aligns the sticky element at the top of its container */
         background: rgb(245, 245, 245); /* Ensures the sticky element has a background */
         z-index: 1; /* Ensures the sticky element is above the content */
-
+        min-width: 45px;
+        border: 1px solid #959595;
         border-bottom: 0px solid #c0c0c0;
         border-radius: 6px 6px 0px 0px;
     }
@@ -91,6 +99,12 @@
         padding: 1.5rem; /* Creates space for the sticky tab buttons, adjust as needed */
         background-color: white;
     }
+
+    .tab-content.no-padding {
+        padding: 0;
+        overflow-y: hidden;
+    }
+
     .active {
         font-weight: bold;
         cursor: pointer;

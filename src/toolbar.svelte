@@ -1,69 +1,50 @@
 <script>
-    import { layoutMode, currentSceneIndex, currentGroupIndex, currentScenes } from './stores.js';
+    import { layoutMode, currentSceneIndex, currentGroupIndex, currentScenes, allScenes } from './stores.js';
     import { derived } from 'svelte/store';
 
     function setMode(mode) {
         layoutMode.set(mode);
     }
 
-    // Function to go to the next scene with wrapping
     function nextScene() {
-        currentSceneIndex.update(n => {
-            const group = $currentScenes;
-            const newIndex = (n + 1) % group.length;
-            console.log('Next Scene Index:', newIndex);
-            return newIndex;
-        });
+        currentSceneIndex.update(n => ($currentScenes.length > 0 ? (n + 1) % $currentScenes.length : 0));
     }
 
-    // Function to go to the previous scene with wrapping
     function prevScene() {
-        currentSceneIndex.update(n => {
-            const group = $currentScenes;
-            const newIndex = (n - 1 + group.length) % group.length;
-            console.log('Previous Scene Index:', newIndex);
-            return newIndex;
-        });
+        currentSceneIndex.update(n => ($currentScenes.length > 0 ? (n - 1 + $currentScenes.length) % $currentScenes.length : 0));
     }
 
-    // Function to change the current scene group
     function changeSceneGroup(index) {
         currentGroupIndex.set(index);
-        currentSceneIndex.set(0); // Reset to the first scene in the new group
-        console.log('Changed Scene Group:', index);
+        currentSceneIndex.set(0);
     }
 
-    // Derived store to get the current scene text
-    const sceneText = derived(
-        [currentSceneIndex, currentScenes],
-        ([$currentSceneIndex, $currentScenes]) => {
-            const sceneDescriptions = [
-                "Scene 1: 2 column layout with multiple tabs",
-                "Scene 2: 2 column stacks",
-                "Scene 3: 2 column changes to tabs. I don't think we'd take this option unless the right column is persistent.",
-                "Scene 4: Standard passage with sidebars",
-                "Scene 5: Banner image passage",
-                "Scene 6: fluid intro test 1 - keep avatars",
-                "Scene 7: fluid intro test 2 - avatar circles",
-                "Scene 8: organizer test"
-            ];
-            return sceneDescriptions[$currentSceneIndex];
+    const sceneInfo = derived(
+        [currentGroupIndex, currentSceneIndex, currentScenes],
+        ([$currentGroupIndex, $currentSceneIndex, $currentScenes]) => {
+            const currentGroup = allScenes[$currentGroupIndex];
+            const currentScene = $currentScenes[$currentSceneIndex];
+            return {
+                groupName: currentGroup.name,
+                sceneName: currentScene ? currentScene.name : `Scene ${$currentSceneIndex + 1}`
+            };
         }
     );
 </script>
 
 <div class="toolbar">
-    <select class="toolbar-select" on:change="{(e) => changeSceneGroup(e.target.value === '0' ? 0 : 1)}">
-        <option value="0">Task</option>
-        <option value="1">Playground</option>
+    <select class="toolbar-select" on:change="{(e) => changeSceneGroup(parseInt(e.target.value))}">
+        {#each allScenes as group, index}
+            <option value={index}>{group.name}</option>
+        {/each}
     </select>
     <button class="toolbar-button" on:click={prevScene}>Back</button>
     <button class="toolbar-button" on:click={nextScene}>Next</button>
-    {#if $currentSceneIndex === 1}
+    {#if $currentSceneIndex === 1 && $currentGroupIndex === 1}
         <button class="toolbar-button" on:click={() => setMode('tabs')}>Tabs</button>
         <button class="toolbar-button" on:click={() => setMode('sidebar')}>Sidebar</button>
     {/if}
-    <div class="scene-text">{$sceneText}</div>
+    <div class="scene-text">{$sceneInfo.groupName}: {$sceneInfo.sceneName}</div>
 </div>
 
 <style>

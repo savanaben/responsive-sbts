@@ -2,7 +2,7 @@
     import Avatar from './Avatar.svelte';
   </script>
   
-  <div>
+  <div class="content-wrapper">
     <Avatar 
       imageUrl="diana-mugshot-square.png" 
       name="Jane Doe" 

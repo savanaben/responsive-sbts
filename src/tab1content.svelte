@@ -1,5 +1,4 @@
 <script>
-	import Avatar from './Avatar.svelte';
   </script>
   
 

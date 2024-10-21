@@ -15,6 +15,9 @@
     export let showRightAvatar = true;
     export let showLeftSpeechBubble = true;
     export let showRightSpeechBubble = true;
+    export let showRightImage = false;
+    export let rightImage = '';
+
 
     let speechBubblesContainer;
     let isHeightExceeded = false;
@@ -86,6 +89,8 @@
         </div>
         {#if showRightAvatar && rightAvatarImage}
             <img src={rightAvatarImage} alt="Right Character" class="character-right">
+        {:else if showRightImage && rightImage}
+            <img src={rightImage} alt="Right Image" class="right-image">
         {/if}
     </div>
     <div class="flex-container avatars-only" class:is-hidden={!isHeightExceeded}>
@@ -105,6 +110,8 @@
                     text={showRightSpeechBubble ? rightSpeechBubbleParagraphs.map(p => `<p>${p}</p>`).join('') : ''}
                     textStyle={showRightSpeechBubble ? "bubble" : "none"}
                 />
+            {:else if showRightImage && rightImage}
+                <img src={rightImage} alt="Right Image" class="right-image-stacked">
             {/if}
         </div>
     </div>
@@ -231,4 +238,20 @@
         visibility: hidden;
         position: fixed;
     }
+
+    .right-image {
+    max-height: 85%;
+    max-width: 580px;
+    object-fit: contain;
+    margin: auto;
+    padding: 1rem 1rem 1rem 0rem;
+}
+
+.right-image-stacked {
+    max-width: 100%;
+    width: 650px;
+    object-fit: contain;
+    margin: 0rem auto;
+    display: block;
+}
 </style>

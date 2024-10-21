@@ -10,6 +10,8 @@ import Scene7 from './scene7.svelte';
 import Scene8 from './scene8.svelte';
 import DIContext from './DIContext.svelte';
 import Scene9 from './scene9.svelte';
+import IntroSceneObject from './IntroSceneObject.svelte';
+
 
 
 import Intro1 from './WaterScenes/Intro1.svelte';
@@ -29,6 +31,7 @@ import { pulseHighlight } from './highlight.js'; // Import pulseHighlight
 export const sidebarOpen = writable(false);
 export const layoutMode = writable('tabs'); // 'tabs' or 'sidebar'
 export const activeTab = writable(null); // Initialize with no active tab
+export const activityPanelSize = writable('default');
 
 
 // Define all scene groups in a single array with names
@@ -51,16 +54,17 @@ export const allScenes = [
         name: "Playground",
         scenes: [
             { component: Scene0, name: "scene0: Notes" },
-            { component: Scene1, name: "scene1: Two Column Layout" },
-            { component: Scene2, name: "scene2: Two Column Stacks" },
-            { component: Scene3, name: "scene3: Tabs Layout" },
+            { component: Scene1, name: "scene1: Two column layout + tabs" },
+            { component: Scene2, name: "scene2: Two column stacks" },
+            { component: Scene3, name: "scene3: Two column to tabs" },
             { component: Scene4, name: "scene4: Simple passage image test" },
             { component: Scene5, name: "scene5: Banner Image Passage" },
-            { component: Scene6, name: "scene6: Fluid Intro Test 1" },
-            { component: Scene7, name: "scene7: Fluid Intro Test 2" },
+            { component: Scene6, name: "scene6: NOT USING THIS APPROACH" },
+            { component: Scene7, name: "scene7: 2 avatars + dialog" },
+            { component: IntroSceneObject, name: "IntroSceneObject: 1 avatar + object" },
             { component: DIContext, name: "DIContext: DI context" },
             { component: Scene8, name: " scene8: Organizer Test" },
-            { component: Scene9, name: " scene9: avatar intro import test" }
+            { component: Scene9, name: " scene9: Activity panel test" }
         ]
     }
 ];

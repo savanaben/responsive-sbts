@@ -38,7 +38,7 @@
     }
 
     .outer-container {
-        width: 100vw; /* Full width of the viewport */
+        width: auto; /* Full width of the viewport */
         height: calc(100vh - 60px);
         overflow-y: auto; /* Enable vertical scrolling */
         display: flex;

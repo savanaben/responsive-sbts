@@ -1,16 +1,22 @@
 <script>
     import { writable } from 'svelte/store';
-    import { sidebarOpen, tabScrollPositions } from './stores.js';
+    import { sidebarOpen, tabScrollPositions, activityPanelSize } from './stores.js';
+    import ActivityPanel from './ActivityPanel.svelte';
+
 
     export let tabs = [];
     export let activeTab;
-    export let paddingOption = 'Padding'; // New prop with default value 'Padding'
+    export let paddingOption = 'Padding'; // New prop with default value 'Padding'. NoPadding removes tab container padding
+    export let activityComponent = null; // New prop for the activity component
+    export let hideActivityButton = false; // New prop to hide the Activity button
 
     let tabContent;
+    let isActivityPanelOpen = false;
+
+
 
     // Function to handle tab click
     function handleTabClick(tab) {
-        // Save the current scroll position if tabContent is defined
         if (tabContent) {
             tabScrollPositions.update(positions => {
                 positions[$activeTab] = tabContent.scrollTop;
@@ -19,13 +25,20 @@
         }
 
         if (tab.action) {
-            tab.action(); // Execute the action if it exists
+            tab.action();
         } else {
-            activeTab.set(tab.title); // Set the active tab normally
+            activeTab.set(tab.title);
         }
     }
 
-    // Restore the scroll position when the active tab changes
+    function toggleActivityPanel() {
+        isActivityPanelOpen = !isActivityPanelOpen;
+    }
+
+    function closeActivityPanel() {
+        isActivityPanelOpen = false;
+    }
+
     $: {
         if (tabContent) {
             tabScrollPositions.subscribe(positions => {
@@ -49,6 +62,15 @@
             </button>
         {/each}
     </div>
+    {#if !hideActivityButton}
+        <button 
+            class="activity-button"
+            class:active={isActivityPanelOpen}
+            on:click={toggleActivityPanel}
+        >
+            Activity
+        </button>
+    {/if}
     <div class="tab-content" 
          class:no-padding={paddingOption === 'NoPadding'}
          bind:this={tabContent} 
@@ -63,48 +85,56 @@
     </div>
 </div>
 
+{#if !hideActivityButton}
+    <ActivityPanel 
+        isOpen={isActivityPanelOpen} 
+        size={$activityPanelSize} 
+        onClose={closeActivityPanel}
+    >
+        {#if activityComponent}
+            <svelte:component this={activityComponent} />
+        {/if}
+    </ActivityPanel>
+{/if}
+
 <style>
     .tabs-container {
-        display: flex; /* Use Flexbox */
-        flex-direction: column; /* Stack children vertically */
-        height: 100%; /* Ensures the container takes up the full height of its parent */
+        display: flex;
+        flex-direction: column;
+        height: 100%;
         max-width: 1366px;
         margin: auto;
+        position: relative; /* Add this */
     }
     .tabs-buttons {
-        position: sticky; /* Makes the tab buttons sticky */
-        top: 0; /* Aligns the sticky element at the top of its container */
-        background: white; /* Ensures the sticky element has a background */
-        z-index: 1; /* Ensures the sticky element is above the content */
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 1;
         padding: 8px 8px 0px 8px;
         border-bottom: 1px solid #c0c0c0;
         border-radius: 6px 6px 0px 0px;
         display: flex;
         background-color: #f8f8f8;
+        align-items: center;
     }
     .tab-buttons {
-        position: sticky; /* Makes the tab buttons sticky */
-        top: 0; /* Aligns the sticky element at the top of its container */
-        background: rgb(245, 245, 245); /* Ensures the sticky element has a background */
-        z-index: 1; /* Ensures the sticky element is above the content */
         min-width: 45px;
         border: 1px solid #959595;
         border-bottom: 0px solid #c0c0c0;
         border-radius: 6px 6px 0px 0px;
+        background: rgb(245, 245, 245);
     }
-
     .tab-content {
-        overflow-y: auto; /* Allows vertical scrolling within the content area */
-        flex-grow: 1; /* Takes up remaining space after .tabs-buttons */
-        padding: 1.5rem; /* Creates space for the sticky tab buttons, adjust as needed */
+        overflow-y: auto;
+        flex-grow: 1;
+        padding: 1.5rem;
         background-color: white;
     }
-
     .tab-content.no-padding {
         padding: 0;
         overflow-y: hidden;
     }
-
     .active {
         font-weight: bold;
         cursor: pointer;
@@ -118,5 +148,25 @@
         color: rgb(13, 105, 202);
         border: 1px solid #969696;
         border-radius: 4px;
+    }
+    .activity-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background-color: #ffffff;
+        color: #333;
+        font-weight: bold;
+        border: 1px solid #959595;
+        border-radius: 4px;
+        padding: 5px 10px;
+        z-index: 1001; /* Higher than the overlay */
+    }
+    .activity-button.active {
+        background-color: #007bff;
+        color: white;
+        box-shadow: none;
+    }
+    .spacer {
+        flex-grow: 1;
     }
 </style>

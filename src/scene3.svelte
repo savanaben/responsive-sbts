@@ -80,7 +80,7 @@
         </div>
     {:else}
         <div class="tab-panel">
-            <Tabs {tabs} {activeTab} />
+            <Tabs {tabs} hideActivityButton={true} {activeTab} />
         </div>
     {/if}
 </div>

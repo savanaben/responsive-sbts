@@ -30,13 +30,12 @@
     ];
 
     // Set initial active tab
-    if (!$activeTab) {
-        activeTab.set('1');
-    }
+    $:activeTab.set('1'); 
+
 </script>
 
 <div class="di-context">
-    <Tabs {tabs} {activeTab} paddingOption="NoPadding" />
+    <Tabs {tabs} hideActivityButton={true} {activeTab} paddingOption="NoPadding" />
 </div>
 
 <style>

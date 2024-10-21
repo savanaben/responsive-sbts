@@ -11,7 +11,7 @@
     ];
 
     const rightSpeechBubbleParagraphs = [
-        "Another speech bubble for testing. Tara has two paragraphs, this will surely ruin our spacing!",
+        "Another speech bubble fo testing. Tara has two paragraphs, this will surely ruin our spacing!",
         "It should be positioned below the first one."
     ];
 </script>
@@ -25,9 +25,9 @@
     rightSpeechBubbleTitle="Tara"
     rightSpeechBubbleParagraphs={rightSpeechBubbleParagraphs}
     showLeftAvatar={true}
-    showRightAvatar={true}
+    showRightAvatar={false}
     showLeftSpeechBubble={true}
-    showRightSpeechBubble={true}
-    showRightImage={false}
+    showRightSpeechBubble={false}
+    showRightImage={true}
     rightImage="introMap.png"
 />

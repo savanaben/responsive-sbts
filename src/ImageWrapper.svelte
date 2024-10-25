@@ -15,6 +15,18 @@
     let outerContainer;
     let maxContainerWidth = 0;
 
+
+    //note -  some of this code was exploring if there was a way to "transform" a 100% width image to a fixed width image
+    // at the right time. the idea being, how do we support horizontally scrolling "fill" type images? I gave up this
+    // idea because a 100% width image is so variable. what is the "true" target/min width (where if the image is any smaller,
+    // you want to stop shrinking it via 100% and instead set it to a set px value.) without some complex dynamic system and maybe
+    // setting hidden min widths, using 100% width is problematic. we'd have to have some kind of decision tree. if the image is
+    // not essential, then 100% is fine (we don't mind if it does not perfectly zoom up to 200%). If the image is essential, it's
+    // starting width at 100% zoom needs to be less than half the screen, so it can scale up to 200% and high zoom. but this will not
+    // factor middle zoom levels and 2 panel layouts. imagine a 2 column layout, left column has an image set to 100%. that image won't
+    // get bigger at 125% zoom when the 2 column layout still exists. Perhaps the dynamic column collapsing will solve this (platform)
+    // detects the 100% image, knows it's as wide as the column, knows we need to stack the layout at 125% zoom.  
+
     function updateContentWidth() {
         const containerWidth = imageWrapper.clientWidth;
         const windowWidth = window.innerWidth;

@@ -1,14 +1,12 @@
 <script>
     import { writable } from 'svelte/store';
-    import Tabs from './tabs.svelte';
-    import { activeTab, activityPanelSize } from './stores.js';  // Add activityPanelSize here
-    import leftPanelContentButton from './leftPanelContentButton.svelte';
-
+    import Tabs from '../tabs.svelte';
+    import { activeTab, activityPanelSize } from '../stores.js';  // Add activityPanelSize here
 
     // Import all DI components
-    import scene4 from './scene4.svelte';
-    import DI_1 from './DITabs/DI_1.svelte';
-    import DI_3 from './DITabs/DI_3.svelte';
+    import scene4 from '../scene4.svelte';
+    import DI_1 from '../DITabs/DI_1.svelte';
+    import DI_2 from '../DITabs/DI_2.svelte';
     // import DI_4 from './DITabs/DI_4.svelte';
     // import DI_5 from './DITabs/DI_5.svelte';
     // import DI_6 from './DITabs/DI_6.svelte';
@@ -21,7 +19,7 @@
     const tabs = [
         { title: 'Passage Title', component: scene4 },
         { title: 'Organizer', component: DI_1 },
-        { title: 'Video', component: DI_3 },
+        { title: 'Video', component: DI_2 },
         // { title: '4', component: DI_4 },
         // { title: '5', component: DI_5 },
         // { title: '6', component: DI_6 },
@@ -34,7 +32,7 @@
     // Set initial active tab
     $:activeTab.set('Passage Title'); 
 
-    activityPanelSize.set('large');
+    activityPanelSize.set('default');
 
 </script>
 
@@ -43,7 +41,7 @@
     {activeTab} 
     paddingOption="NoPadding" 
     hideActivityButton={false} 
-    activityComponent={DI_1} 
+    activityComponent={DI_2} 
     />
 </div>
 
